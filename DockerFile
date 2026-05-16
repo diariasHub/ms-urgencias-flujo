@@ -1,0 +1,11 @@
+# 1. Imagen base: Usamos la versión oficial y ligera de Java 21
+FROM eclipse-temurin:21-jdk-alpine
+
+# 2. Creamos un volumen temporal (Recomendado por Spring Boot para Tomcat)
+VOLUME /tmp
+
+# 3. Copiamos el archivo compilado desde tu computadora al contenedor
+COPY target/*.jar app.jar
+
+# 4. Le decimos al contenedor cómo debe encenderse
+ENTRYPOINT ["java","-jar","/app.jar"]
