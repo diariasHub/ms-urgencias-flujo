@@ -15,9 +15,9 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/urgencias/ingreso").hasRole("RECEPCIONISTA")
-                .requestMatchers("/urgencias/triage/**").hasRole("ENFERMERO")
-                .requestMatchers("/urgencias/ficha/**", "/urgencias/alta/**").hasRole("MEDICO")
+                .requestMatchers("/urgencias/ingreso").permitAll()//.hasRole("RECEPCIONISTA")
+                .requestMatchers("/urgencias/triage/**").permitAll()//.hasRole("ENFERMERO")
+                .requestMatchers("/urgencias/ficha/**", "/urgencias/alta/**").permitAll()//.hasRole("MEDICO")
                 .requestMatchers("/urgencias/espera/**", "/urgencias/rechazo").permitAll() // Acceso público para la App del paciente
                 .anyRequest().authenticated()
             );
