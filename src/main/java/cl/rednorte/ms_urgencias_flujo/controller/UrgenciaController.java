@@ -16,6 +16,11 @@ public class UrgenciaController {
         this.urgenciaService = urgenciaService;
     }
 
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("ok");
+    }
+
     @PostMapping("/ingreso")
     public ResponseEntity<String> ingresoRecepcion(@RequestBody Map<String, String> payload) {
         String id = urgenciaService.registrarIngreso(payload.get("rut"), payload.get("motivo"));

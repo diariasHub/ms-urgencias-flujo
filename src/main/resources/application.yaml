@@ -1,3 +1,7 @@
 spring:
   application:
     name: ms-urgencias-flujo
+    
+fhir:
+  server:
+    url: http://tu-servidor-fhir:8080/fhir
