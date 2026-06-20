@@ -1,11 +1,18 @@
-# 1. Imagen base: Usamos la versión oficial y ligera de Java 21
-FROM eclipse-temurin:21-jdk-alpine
+# =========================================================
+# ETAPA 1 - BUILD
+# =========================================================
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+COPY src ./src
+RUN mvn clean package -DskipTests -B
 
-# 2. Creamos un volumen temporal (Recomendado por Spring Boot para Tomcat)
-VOLUME /tmp
-
-# 3. Copiamos el archivo compilado desde tu computadora al contenedor
-COPY target/*.jar app.jar
-
-# 4. Le decimos al contenedor cómo debe encenderse
-ENTRYPOINT ["java","-jar","/app.jar"]
+# =========================================================
+# ETAPA 2 - RUNTIME
+# =========================================================
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/ms-urgencias-flujo-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]

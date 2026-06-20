@@ -1,3 +1,17 @@
 spring:
   application:
     name: ms-urgencias-flujo
+  cloud:
+    compatibility-verifier:
+      enabled: false
+    
+fhir:
+  server:
+    url: http://tu-servidor-fhir:8080/fhir
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://ms-service-discovery:8761/eureka/}
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
