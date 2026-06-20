@@ -10,28 +10,18 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-@Bean
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
-    return http.build();
-}
-
- /*    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/urgencias/ingreso").permitAll()//.hasRole("RECEPCIONISTA")
-                .requestMatchers("/urgencias/triage/**").permitAll()//.hasRole("ENFERMERO")
-                .requestMatchers("/urgencias/ficha/**", "/urgencias/alta/**").permitAll()//.hasRole("MEDICO")
+                .requestMatchers("/urgencias/ping").permitAll()
+                .requestMatchers("/urgencias/ingreso").hasRole("RECEPCIONISTA")
+                .requestMatchers("/urgencias/triage/**").hasRole("ENFERMERO")
+                .requestMatchers("/urgencias/ficha/**", "/urgencias/alta/**").hasRole("MEDICO")
                 .requestMatchers("/urgencias/espera/**", "/urgencias/rechazo").permitAll() // Acceso público para la App del paciente
                 .anyRequest().authenticated()
             );
         return http.build();
     }
-*/
-
 }
