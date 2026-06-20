@@ -15,6 +15,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/urgencias/ping").permitAll()
                 .requestMatchers("/urgencias/ingreso").hasRole("RECEPCIONISTA")
                 .requestMatchers("/urgencias/triage/**").hasRole("ENFERMERO")
